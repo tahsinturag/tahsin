@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en" class="dark" id="em">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md. Tahsin Islam Molla - Software Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .bg-primary {
+            background-color: #2c3e50;
+        }
+
+        .text-primary {
+            color: #2c3e50;
+        }
+
+        .bg-accent {
+            background-color: #3498db;
+        }
+
+        .text-accent {
+            color: #3498db;
+        }
+
+        .project-card {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .navbar-link {
+            transition: color 0.3s ease-in-out;
+        }
+
+        .navbar-link:hover {
+            color: #3498db;
+        }
+
+        .header-animation {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.2));
+            animation: gradientAnimation 5s linear infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .interactive-button {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .interactive-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            z-index: -1;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .interactive-button:hover::before {
+            transform: scale(1.5);
+        }
+
+        /* Add this to your existing CSS */
+
+        /* Dark mode styles */
+        .dark body {
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+
+        .dark .bg-white {
+            background-color: #2d3748;
+        }
+
+        .dark .text-gray-600,
+        .dark .text-gray-700,
+        .dark .text-gray-800,
+        .dark .text-gray-900 {
+            color: #e2e8f0;
+        }
+
+        .dark .bg-gray-100,
+        .dark .bg-gray-200 {
+            background-color: #2d3748;
+        }
+
+        .dark .border-gray-300 {
+            border-color: #4a5568;
+        }
+
+        .dark .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .text-primary {
+            color: #90cdf4;
+        }
+
+        .dark .text-accent {
+            color: #4299e1;
+        }
+
+        .dark input,
+        .dark textarea {
+            background-color: #2d3748;
+            color: #e2e8f0;
+        }
+
+        .dark .hover\:bg-gray-100:hover {
+            background-color: #4a5568;
+        }
+
+        .dark .project-card:hover {
+            background-color: #4a5568;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #181818;
+                color: #fff;
+            }
+
+            .bg-primary {
+                background-color: #1a1a1a;
+            }
+
+            .bg-accent {
+                background-color: #3498db;
+            }
+
+            .text-primary {
+                color: #fff;
+            }
+
+            .project-card,
+            .navbar-link,
+            .interactive-button {
+                background-color: #1a1a1a;
+                color: #fff;
+            }
+
+            .project-card:hover,
+            .navbar-link:hover,
+            .interactive-button:hover {
+                background-color: #3498db;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 bg-white shadow-md py-4 px-6 z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-semibold text-primary">Tahsin</a>
+            <div class="hidden md:flex space-x-4">
+                <a href="#about" class="hover:text-accent navbar-link">About</a>
+                <a href="#skills" class="hover:text-accent navbar-link">Skills</a>
+                <a href="#projects" class="hover:text-accent navbar-link">Projects</a>
+                <a href="#activities" class="hover:text-accent navbar-link">Activities</a>
+                <a href="#certifications" class="hover:text-accent navbar-link">Certifications</a>
+                <a href="#education" class="hover:text-accent navbar-link">Education</a>
+                <a href="#contact" class="hover:text-accent navbar-link">Contact</a>
+            </div>
+            <button id="menu-toggle" class="md:hidden text-gray-800 hover:text-gray-600 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+                    </path>
+                </svg>
+            </button>
+
+        </div>
+        <div id="mobile-menu"
+            class="hidden md:hidden fixed top-16 left-0 right-0 bg-white shadow-md py-4 px-6 z-10 flex flex-col space-y-4">
+            <a href="#about" class="hover:text-accent navbar-link">About</a>
+            <a href="#skills" class="hover:text-accent navbar-link">Skills</a>
+            <a href="#projects" class="hover:text-accent navbar-link">Projects</a>
+            <a href="#activities" class="hover:text-accent navbar-link">Activities</a>
+            <a href="#certifications" class="hover:text-accent navbar-link">Certifications</a>
+            <a href="#education" class="hover:text-accent navbar-link">Education</a>
+            <a href="#contact" class="hover:text-accent navbar-link">Contact</a>
+        </div>
+    </nav>
+
+
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            var mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Header -->
+    <header class="min-h-screen flex items-center justify-center bg-gray-900 text-white py-20 header-animation">
+        <div class="text-center">
+            <h1 class="text-7xl font-extrabold mb-6">Md. Tahsin Islam Molla</h1>
+            <p class="text-3xl mb-10">Innovative Software Engineer & Problem Solver</p>
+            <!-- <a href="#projects" 
+                class="interactive-button bg-white text-gray-900 py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 font-bold text-xl">View
+                My Work</a> -->
+        </div>
+    </header>
+
+    <!-- About -->
+    <section id="about" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-8 lg:px-16">
+            <h2 class="text-4xl font-bold mb-8 text-center text-primary">About Me</h2>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="flex justify-center">
+                    <img src="./IMG_2402.JPG" alt="Md. Tahsin Islam Molla"
+                        class="w-64 h-64 rounded-full object-cover shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
+                </div>
+                <div class="text-left">
+                    <p class="text-lg text-gray-600 leading-relaxed mb-4">
+                        I'm a dedicated Software Engineer with a passion for blending innovation and technical skills to
+                        create meaningful solutions. With experience across diverse fields, I enjoy tackling complex
+                        problems and delivering quality results.
+                    </p>
+                    <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                        Adaptable and always eager to grow, I love collaborating in teams to build software that not
+                        only
+                        meets requirements but also enriches the user experience. Every project is an opportunity to
+                        learn
+                        and make an impact.
+                    </p>
+                    <div class="flex  space-x-4 mt-8">
+                        <a href="mailto:tahsinturag10@gmail.com"
+                            class="text-accent hover:text-dark transition duration-300">
+                            <i class="fas fa-envelope text-2xl"></i>
+                        </a>
+                        <a href="https://github.com/tahsinturag" target="_blank" rel="noopener noreferrer"
+                            class="text-accent hover:text-dark transition duration-300">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/md-tahsin-islam-molla-turag" target="_blank"
+                            rel="noopener noreferrer" class="text-accent hover:text-dark transition duration-300">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Skills -->
+    <section id="skills" class="py-20 bg-gray-200">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-8 text-center text-primary">Skills & Expertise</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg skill-card">
+                    <h3 class="text-2xl font-semibold mb-4 text-accent">Programming Languages</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">JavaScript</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">C++</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">C#</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">Java</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">Python</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">Solidity</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg skill-card">
+                    <h3 class="text-2xl font-semibold mb-4 text-accent">Frameworks & Libraries</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">React.js</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">Angular</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">Node.js</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">ASP.NET</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg skill-card">
+                    <h3 class="text-2xl font-semibold mb-4 text-accent">Web Development</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">HTML</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">CSS</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">PHP</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">JavaScript</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg skill-card">
+                    <h3 class="text-2xl font-semibold mb-4 text-accent">Database</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">Microsoft
+                            SQL</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">MySQL</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">MongoDB</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg skill-card">
+                    <h3 class="text-2xl font-semibold mb-4 text-accent">DevOps & Tools</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">Docker</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">Kubernetes</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">Git</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">Visual
+                            Studio</span>
+                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">VS
+                            Code</span>
+                        <span
+                            class="bg-gray-100 px-3 py-1 rounded-full text-sm border border-accent text-gray-800">NetBeans</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-8 text-center text-primary">Featured Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg project-card">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">Wheel on the GO RentBuddy</h3>
+                    <p class="text-gray-600 mb-4">Developed a vehicle rental platform using JavaScript, CSS, HTML, and
+                        C#. Integrated with Microsoft SQL database and ASP.NET MVC.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">JavaScript</span>
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">ASP.NET</span>
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">SQL</span>
+                    </div>
+                    <a href="https://github.com/tahsinturag/Wheel-on-the-GO-RentBuddy"
+                        class="text-accent hover:underline">View Project</a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg project-card">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">Medcure</h3>
+                    <p class="text-gray-600 mb-4">Built a pharmacy management system in Java with Microsoft SQL database
+                        integration. Streamlined inventory management and sales tracking for pharmacies.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">Java</span>
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">SQL</span>
+                    </div>
+                    <a href="https://github.com/tahsinturag/MedCure-PharmacyManagementSystem-using-JAVA"
+                        class="text-accent hover:underline">View Project</a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg project-card">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">Getting Through It</h3>
+                    <p class="text-gray-600 mb-4">Developed an igraphics game using C and C++ in Visual Studio.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">C</span>
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">C++</span>
+                    </div>
+                    <a href="https://github.com/tahsinturag/Getting-through-it--igraphics-game"
+                        class="text-accent hover:underline">View Project</a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg project-card">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">MarbelFlow</h3>
+                    <p class="text-gray-600 mb-4">Implemented an AI-integrated flow-based puzzle game in Python.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">Python</span>
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">AI</span>
+                    </div>
+                    <a href="https://github.com/tahsinturag/MarbelFlow" class="text-accent hover:underline">View
+                        Project</a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg project-card">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">Sphinx-Video-Player</h3>
+                    <p class="text-gray-600 mb-4">Created a video player application in Kotlin. Integrated playback
+                        features and user controls.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">Kotlin</span>
+                    </div>
+                    <a href="https://github.com/tahsinturag/Sphinx-Video-Player"
+                        class="text-accent hover:underline">View Project</a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg project-card">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">Hotel Management Website</h3>
+                    <p class="text-gray-600 mb-4">Developed a hotel management website using JavaScript, PHP, HTML, and
+                        CSS with MySQL. Provided features for booking and customer support.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">JavaScript</span>
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">PHP</span>
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">HTML</span>
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">CSS</span>
+                        <span
+                            class="bg-gray-100 text-dark text-xs font-medium px-2.5 py-0.5 rounded border border-accent">MySQL</span>
+                    </div>
+                    <a href="https://github.com/tahsinturag/Hotel-Management-Website"
+                        class="text-accent hover:underline">View Project</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities & Leadership -->
+    <section id="activities" class="py-20 bg-gray-200">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-8 text-center text-primary">Activities & Leadership</h2>
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">Sub-Executive</h3>
+                    <p class="text-gray-600 mb-2">AUST Programming and Informatics Club</p>
+                    <p class="text-gray-600">Jul 2023 -- Present</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">Campus Ambassador</h3>
+                    <p class="text-gray-600 mb-2">Programming Hero</p>
+                    <p class="text-gray-600">Feb 2024 -- Present</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">University Ambassador</h3>
+                    <p class="text-gray-600 mb-2">ICT Olympiad Bangladesh</p>
+                    <p class="text-gray-600">Mar 2022 -- Sep 2024</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">Vice President of Sponsorship and Communication
+                    </h3>
+                    <p class="text-gray-600 mb-2">College Science Club</p>
+                    <p class="text-gray-600">Mar 2020 -- Nov 2021</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certifications" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-8 text-center text-primary">Certifications</h2>
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">The Complete Web Development Bootcamp (2024)
+                    </h3>
+                    <p class="text-gray-600">Dr. Angela Yu</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">Docker & Kubernetes: The Practical Guide</h3>
+                    <p class="text-gray-600">Maximilian Schwarzmüller</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="py-20 bg-gray-200">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-8 text-center text-primary">Education</h2>
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">Ahsanullah University of Science and Technology
+                    </h3>
+                    <p class="text-gray-600 mb-2">B.Sc. in Computer Science and Engineering (CSE); CGPA: 3.20/4.00</p>
+                    <p class="text-gray-600">2020 -- 2024</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">Police Lines School and College Rangpur</h3>
+                    <p class="text-gray-600 mb-2">Higher Secondary Certificate (HSC), Science; GPA: 5.00/5.00</p>
+                    <p class="text-gray-600">2019</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-2 text-accent">Hatibandha SS Model High School</h3>
+                    <p class="text-gray-600 mb-2">Secondary School Certificate (SSC), Science; GPA: 5.00/5.00</p>
+                    <p class="text-gray-600">2017</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-3 text-center text-primary">Get in Touch</h2>
+            <div class="bg-white p-8 rounded-lg shadow-lg max-w-2xl mx-auto">
+                <p class="text-lg text-gray-700 mb-6 text-center">I'm always open to new opportunities and
+                    collaborations. Feel free to reach out!</p>
+                <form class="space-y-4">
+                    <div>
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Your Name</label>
+                        <input type="text" id="name"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-accent focus:border-accent block w-full p-2.5"
+                            placeholder="Your name" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your Email</label>
+                        <input type="email" id="email"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-accent focus:border-accent block w-full p-2.5"
+                            placeholder="Your Email" required>
+                    </div>
+                    <div>
+                        <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Your Message</label>
+                        <textarea id="message" rows="4"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-accent focus:border-accent block w-full p-2.5"
+                            placeholder="Your message here..."></textarea>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-accent text-white py-2 px-4 rounded-full hover:bg-opacity-80 transition duration-300 font-semibold">Send
+                        Message</button>
+                </form>
+                <div class="flex justify-center space-x-4 mt-8">
+                    <a href="mailto:tahsinturag10@gmail.com"
+                        class="text-accent hover:text-dark transition duration-300">
+                        <i class="fas fa-envelope text-2xl"></i>
+                    </a>
+                    <a href="https://github.com/tahsinturag" target="_blank" rel="noopener noreferrer"
+                        class="text-accent hover:text-dark transition duration-300">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/md-tahsin-islam-molla-turag" target="_blank"
+                        rel="noopener noreferrer" class="text-accent hover:text-dark transition duration-300">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+</body>
+
+</html>
